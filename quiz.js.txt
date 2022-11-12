@@ -1,0 +1,32 @@
+// 1. Create a multidimensional array to hold quiz questions and answers
+const quiz = [["1?","2?","3?"], ['y','y','y']];
+//console.log("check");
+// 2. Store the number of questions answered correctly
+let score = 0;
+/* 
+  3. Use a loop to cycle through each question
+  let
+      - Present each question to the user
+      - Compare the user's response to answer in the array
+      - If the response matches the answer, the number of correctly
+        answered questions increments by 1
+        
+*/
+                     let correctQuestions = ''; 
+                     let incorrectQuestions = '';
+  for (let i = 0 ; i < quiz[0].length; i++){
+      let answer;
+            if ( answer = prompt(`${quiz[0][i]} (y/n)`).toLowerCase() === quiz[1][i]){
+              score++;
+              correctQuestions += `<li> ${quiz[0][i]} </li>`;
+              }else {
+              incorrectQuestions += `<li> ${quiz[0][i]} </li>`;
+              }
+    
+            }
+  console.log(score);
+// 4. Display the number of correct answers to the user
+            let main = document.querySelector('main');
+
+   main.innerHTML = `<h2> congratulations you got ${score} questions correct! </h2> <h2> Questions you got right: </h2>
+<ol>${correctQuestions}</ol> <h2> Questions you got Wrong: </h2> <ol> ${incorrectQuestions} </ol> `
