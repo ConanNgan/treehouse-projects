@@ -149,7 +149,7 @@ form.addEventListener('submit', (e)=>{
     }
 
 if (submit === false){
-    e.preventDefault();
+    //e.preventDefault();
 }
 
 });
