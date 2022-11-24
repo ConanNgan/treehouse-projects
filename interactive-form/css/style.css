@@ -215,7 +215,7 @@ button:hover {
   display: none;
   color: red;
   margin: 0;
-  transition: all 0.3s ease-out;W
+  transition: all 0.3s ease-out;
 }
 
 .form-hint {

@@ -19,6 +19,16 @@ jobSelector.addEventListener('change', e =>{
         otherTextField.hidden = false;
     }
 });
+//helper functions
+
+function correctName(){
+    if(/\w+/.test(nameField.value)){
+        console.log("name's ok");
+        return true;
+    } 
+    return false;
+
+}
 
 function isValidCreditCardNumber(input){
     return /^\d{13}\d?\d?\d?$/.test(input.value);
@@ -103,15 +113,6 @@ PaymentSelect.addEventListener('change', e =>{
     }
 });
 
-function correctName(){
-    if(nameField.value === '' || /\w*/.test(nameField.value)){
-
-        console.log("name's ok");
-        return true;
-    } 
-    return false;
-
-}
 
 const form = document.querySelector('form');
 
@@ -120,13 +121,31 @@ const form = document.querySelector('form');
 
 
 form.addEventListener('submit', (e)=>{
+   // e.preventDefault();
     console.log('asdf');
     //e.preventDefault();
     let submit = true;
  //correct name?   
-    if(!correctName()) submit = false;
+    if(!correctName()) {
+        submit = false;
+         nameField.parentElement.className = 'not-valid';
+         nameField.parentElement.lastElementChild.style.display = 'block';
+    }else{
+        nameField.parentElement.className = 'valid';
+        nameField.parentElement.lastElementChild.style.display = '';
+    }
  //correct email?   
-    if( !isAcceptableEmail(document.getElementById('email').value) ) submit = false;
+    const emailField = document.getElementById('email');
+    if( !isAcceptableEmail(emailField.value) ){
+        
+         submit = false;
+         emailField.parentElement.className = 'not-valid';
+         emailField.parentElement.lastElementChild.style.display = 'block';
+    }else{
+        emailField.parentElement.className = 'valid';
+        emailField.parentElement.lastElementChild.style.display = '';
+    }
+
 //item Selected?   
 
     let itemSelected = false;
@@ -139,11 +158,13 @@ form.addEventListener('submit', (e)=>{
     if (!itemSelected){
         activitiesBox.parentElement.className = 'activities not-valid';
      //   activitiesBox.parentElement.lastElementChild.className= 'activities-hint hintShow';
+        activitiesBox.parentElement.lastElementChild.style.display = 'block';
         submit = false;
         console.log('item is not ok');
     } else{
         activitiesBox.parentElement.className = 'activities valid';
-        activitiesBox.parentElement.lastElementChild.className= 'activities-hint hint';
+        //activitiesBox.parentElement.lastElementChild.className= 'activities-hint hint';
+        activitiesBox.parentElement.lastElementChild.style.display = '';
 
     }
 
@@ -154,20 +175,37 @@ form.addEventListener('submit', (e)=>{
        if(!isValidCreditCardNumber(creditCardNumberInput)){
         submit = false;
         console.log('ccn is not ok');
+        creditCardNumberInput.parentElement.className = 'not-valid';
+        creditCardNumberInput.parentElement.lastElementChild.style.display = 'block';
+       }else {
+        creditCardNumberInput.parentElement.className = 'valid';
+        creditCardNumberInput.parentElement.lastElementChild.style.display = '';
        }
        const zipCodeInput = document.getElementById('zip');
        if(!isValidZip(zipCodeInput)){
         submit = false;
+        zipCodeInput.parentElement.className = 'not-valid';
+        zipCodeInput.parentElement.lastElementChild.style.display = 'block';
         console.log('zip is not ok');
+       }else{
+        zipCodeInput.parentElement.className = 'valid';
+        zipCodeInput.parentElement.lastElementChild.style.display = '';
        }
+
+
        const CVVInput = document.getElementById('cvv');
        if(!isValidCVV(CVVInput)){
+        CVVInput.parentElement.className = 'not-valid';
+        CVVInput.parentElement.lastElementChild.style.display = 'block';
         submit = false;
         console.log('cvv is not ok');
+       }else{
+        CVVInput.parentElement.className = 'valid';
+        CVVInput.parentElement.lastElementChild.style.display = '';
        }
        
     }
-
+  
 if (submit === false){
     e.preventDefault();
 }
