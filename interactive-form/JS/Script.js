@@ -1,10 +1,11 @@
 
-//fields
+// global fields
 const nameField = document.getElementById('name');
 nameField.focus();
 
 const otherTextField = document.getElementById('other-job-role');
 otherTextField.hidden = true;
+const activitiesBox = document.getElementById('activities-box');
 
 
 //validators
@@ -26,7 +27,9 @@ function isValidCreditCardNumber(input){
      return /^\d{5}$/.test(input.value);
   }
   function isValidCVV(input){
-     return /^\d{3}$/.test(input.value);
+    console.log(/^\d{3}$/.test(input.value) + 'what? ' + input.value); 
+    return /^\d{3}$/.test(input.value);
+
   }
  
 
@@ -100,31 +103,48 @@ PaymentSelect.addEventListener('change', e =>{
     }
 });
 
+function correctName(){
+    if(nameField.value === '' || /\w*/.test(nameField.value)){
+
+        console.log("name's ok");
+        return true;
+    } 
+    return false;
+
+}
+
 const form = document.querySelector('form');
+
+
+// submit
+
+
 form.addEventListener('submit', (e)=>{
     console.log('asdf');
-   // e.preventDefault();
+    //e.preventDefault();
     let submit = true;
  //correct name?   
-    if(nameField.value === '' || /\w*/.test(nameField.value)){
-        console.log("name's ok");
-    } else {sumbit = false;}
+    if(!correctName()) submit = false;
  //correct email?   
-    if( isAcceptableEmail(document.getElementById('email').value) ){
-      console.log('email is ok');
-    }else {sumbit = false;}
-
+    if( !isAcceptableEmail(document.getElementById('email').value) ) submit = false;
 //item Selected?   
-    const activitiesBox = document.getElementById('activities-box');
+
     let itemSelected = false;
+
     for ( let element of activitiesBox.children) {
         if(element.children[0].checked){
             itemSelected = true;
         }
     }
     if (!itemSelected){
+        activitiesBox.parentElement.className = 'activities not-valid';
+     //   activitiesBox.parentElement.lastElementChild.className= 'activities-hint hintShow';
         submit = false;
         console.log('item is not ok');
+    } else{
+        activitiesBox.parentElement.className = 'activities valid';
+        activitiesBox.parentElement.lastElementChild.className= 'activities-hint hint';
+
     }
 
 //correct creditCardInformation?
@@ -140,7 +160,7 @@ form.addEventListener('submit', (e)=>{
         submit = false;
         console.log('zip is not ok');
        }
-       const CVVInput = document.getElementById('zip');
+       const CVVInput = document.getElementById('cvv');
        if(!isValidCVV(CVVInput)){
         submit = false;
         console.log('cvv is not ok');
@@ -149,9 +169,23 @@ form.addEventListener('submit', (e)=>{
     }
 
 if (submit === false){
-    //e.preventDefault();
+    e.preventDefault();
 }
 
 });
+
+//checkboxFocuslistener
+
+
+const labelElementsofCheckbox= activitiesBox.children;
+for(let i = 0; i < labelElementsofCheckbox.length ; i++){
+    labelElementsofCheckbox[i].firstElementChild.addEventListener('focus', e =>{
+        e.target.parentElement.className = 'focus';
+    });
+    labelElementsofCheckbox[i].firstElementChild.addEventListener('blur', e =>{
+        e.target.parentElement.className = '';
+    });
+
+}
 
 
