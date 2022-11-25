@@ -4,7 +4,7 @@
   
       //helper
       function containsStringB(string, stringB){
-        regex = new RegExp(`${stringB}[^a-zA-Z0-9]`);
+        regex = new RegExp(`${stringB}\\W`);
         console.log(regex);
         return regex.test(string);
     }
