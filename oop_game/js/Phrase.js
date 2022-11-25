@@ -18,9 +18,9 @@ class Phrase{
       
         //html to be put in ul box
         let html = ``;
-        for(let i = 0 ; i < phrase.phrase.length; i++){
-            const letter = phrase.phrase[i]
-           // console.log(phrase.phrase[i]);
+        for(let i = 0 ; i < this.phrase.length; i++){
+            const letter = this.phrase[i]
+         //  console.log(phrase);
             if(letter != ' ')  {
                 html += `<li class="hide letter ${letter}"> ${letter}</li>`
             }else{html += ` <li class="space"> </li>`}
@@ -61,6 +61,6 @@ class Phrase{
 
 }
 
-const phrase = new Phrase('hello');
-phrase.addPhraseToDisplay()
-phrase.showMatchedLetter('h');
+// const phrase = new Phrase('hello');
+//phrase.addPhraseToDisplay()
+// phrase.showMatchedLetter('h');
