@@ -48,9 +48,9 @@ class Phrase{
     showMatchedLetter(letter){
         for (let element of ulBox.children){
             let assignedClass = element.className;
-            console.log(assignedClass.charAt(assignedClass.length-1));
+            //console.log(assignedClass.charAt(assignedClass.length-1));
             if(assignedClass.charAt(assignedClass.length-1) === letter){
-                console.log('reached');
+               // console.log('reached');
                element.className = `show letter ${letter}`;
               
             }
